@@ -4,5 +4,7 @@
 Puck
 ====
 Running:
-`npm install`
-`iced puck.iced`
+```
+npm install
+iced puck.iced
+```
