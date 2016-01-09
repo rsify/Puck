@@ -10,8 +10,8 @@ bot = new DiscordClient
 	autorun: true
 	token: settings.bot.token
 
-re = /<@[\d\w]+> (\w+)\n? ?`{1,}([\s\S]+?)`{1,}/
-re2 = /<@[\d\w]+> (\w+)/
+re = /<@[\d\w]+> (\S+)\n? ?`{1,}([\s\S]+?)`{1,}/
+re2 = /<@[\d\w]+> (\S+)/
 
 bot.on 'ready', ->
 	console.log "#{bot.username} - (#{bot.id})"
