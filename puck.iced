@@ -10,14 +10,13 @@ bot = new DiscordClient
 	autorun: true
 	token: settings.bot.token
 
-re = /<@[\d\w]+> (\S+)\n? ?`{1,}([\s\S]+?)`{1,}/
-re2 = /<@[\d\w]+> (\S+)/
+re = /<@!?[\d\w]+> (\S+)\n? ?`{1,}([\s\S]+?)`{1,}/
+re2 = /<@!?[\d\w]+> (\S+)/
 
 bot.on 'ready', ->
 	console.log "#{bot.username} - (#{bot.id})"
 
 bot.on 'message', (user, userID, channelID, message, e) ->
-	
 	# if channelID in settings.bot.channelsEnabled
 
 	#hlpme
@@ -28,8 +27,7 @@ bot.on 'message', (user, userID, channelID, message, e) ->
 			flag = true
 
 	if flag
-		
-		if message.startsWith "<@#{bot.id}>"
+		if (message.startsWith "<@!#{bot.id}>") or (message.startsWith "<@#{bot.id}>")
 			match = message.match(re2)[1]
 			if match of commands
 				bot.sendMessage
@@ -44,7 +42,7 @@ bot.on 'message', (user, userID, channelID, message, e) ->
 					language = alias data[1]
 					source = parse language, data[2]
 
-					if !language 
+					if !language
 						bot.sendMessage
 							to: channelID
 							message: "<@#{userID}>, you have to specify one of these languages! \n
@@ -68,9 +66,7 @@ bot.on 'message', (user, userID, channelID, message, e) ->
 										to: channelID
 										message: "<@#{userID}>, success! Compiled in #{result.time}s \n
 										Output:
-										``` \n
-										#{result.output} \n
-										```"
+										```#{result.output}```"
 				catch e
 					# if e.name == 'TypeError'
 					# 	bot.sendMessage
